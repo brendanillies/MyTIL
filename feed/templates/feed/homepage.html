@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 
-{% block title %}Test{% endblock %}
+{% block title %}Posts{% endblock %}
 
 
-{% block body %}Test{% endblock %}
+{% block body %}
+    {% for post in posts %}
+        {{ post.text }} written at {{ post.date }}
+        <hr>
+    {% endfor %}
+{% endblock %}
