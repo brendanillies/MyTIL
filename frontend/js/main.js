@@ -32,3 +32,33 @@ $(document).on('click', '.js-toggle-modal', function(e) {
     e.preventDefault();
     $('.js-modal').toggleClass('hidden');
 })
+.on('click', '.js-submit', function(e) {
+    e.preventDefault();
+
+    const postTextArea = $('.js-post-text');
+    const $btn = $(this);
+    const modal = $('.js-modal')
+
+    if (!postTextArea.val().trim().length) {
+        return false
+    };
+
+    $btn.prop('disabled', true).text('Posting!')
+    $.ajax({
+        type: 'POST',
+        url: postTextArea.data('post-url'),
+        data: {
+            text: postTextArea.val().trim()
+        },
+        success: (dataHtml) => {
+            modal.toggleClass('hidden');
+            $('#posts-container').prepend(dataHtml);
+            $btn.prop('disabled', false).text('New Post');
+            postTextArea.val('');
+        },
+        error: (error) => {
+            console.warn(error);
+            $btn.prop('disabled', false).text('Error');
+        }
+    })
+})
