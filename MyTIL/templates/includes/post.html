@@ -12,15 +12,12 @@
     <div class="flex justify-between items-center mt-4">
         {% if show_detail_link %}
             <a class="text-blue-600 hover:underline" href="{% url 'feed:detail' post.id %}">
-                {# TODO Add a detail url #}
                 Read More
             </a>
         {% else %}
             <span>&nbsp;</span>
         {% endif %}
         <div>
-            {# TODO User needs a link to their bio, photo, thumbnail, and #}
-
             <a class="flex items-center" href="{% url 'profiles:detail' post.author.username %}">
                 {% thumbnail post.author.profile.image "373x373" crop="center" as im %}
                     <img class="mx-4 w-10 h-10 object-cover rounded-full hidden sm:block" alt="avatar" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
