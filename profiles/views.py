@@ -62,8 +62,11 @@ class FollowView(LoginRequiredMixin, View):
 
             if follower:
                 follower.delete()
+        
+        follower_count = Follower.objects.filter(following=other_user).count()
 
         return JsonResponse({
             'success': True,
-            'wording': 'Unfollow' if data['action'] == 'follow' else 'Follow'
+            'wording': 'Unfollow' if data['action'] == 'follow' else 'Follow',
+            'follower_count': follower_count
         })
