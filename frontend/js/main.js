@@ -76,6 +76,7 @@ $(document).on('click', '.js-toggle-modal', function(e) {
         },
         success: (data) => {
             $('.js-follow-text').text(data.wording);
+            $('.js-follower-count').text(data.follower_count);
             if (action == 'follow') {
                 // Change wording to Unfollow
                 $(this).attr('data-action', 'unfollow')

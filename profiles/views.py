@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django.views.generic import DetailView, View
+from django.views.generic import DetailView, UpdateView, View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse, HttpResponseBadRequest
 
@@ -22,11 +22,22 @@ class ProfileDetailView(DetailView):
     def get_context_data(self, **kwargs):
         user = self.get_object()
         context = super().get_context_data(**kwargs)
-        context["total_posts"] = Post.objects.filter(author=user).count()
+        context['total_posts'] = Post.objects.filter(author=user).count()
+        context['total_followers'] = Follower.objects.filter(following=user).count()
         
         if self.request.user.is_authenticated:
             context['you_follow'] = Follower.objects.filter(following=user, followed_by=self.request.user).exists()
         return context
+
+
+class ProfileSettingsView(UpdateView):
+    http_method_names = ['get', 'post']
+    template_name = 'account/email_change.html'
+    model = User
+    context_object_name = 'user'
+    slug_field = 'username'
+    slug_url_kwarg = 'username'
+    fields = ['username']
 
 
 class FollowView(LoginRequiredMixin, View):
@@ -61,8 +72,11 @@ class FollowView(LoginRequiredMixin, View):
 
             if follower:
                 follower.delete()
+        
+        follower_count = Follower.objects.filter(following=other_user).count()
 
         return JsonResponse({
             'success': True,
-            'wording': 'Unfollow' if data['action'] == 'follow' else 'Follow'
+            'wording': 'Unfollow' if data['action'] == 'follow' else 'Follow',
+            'follower_count': follower_count
         })
