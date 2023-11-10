@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django.views.generic import DetailView, View
+from django.views.generic import DetailView, UpdateView, View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse, HttpResponseBadRequest
 
@@ -28,6 +28,16 @@ class ProfileDetailView(DetailView):
         if self.request.user.is_authenticated:
             context['you_follow'] = Follower.objects.filter(following=user, followed_by=self.request.user).exists()
         return context
+
+
+class ProfileSettingsView(UpdateView):
+    http_method_names = ['get', 'post']
+    template_name = 'account/email_change.html'
+    model = User
+    context_object_name = 'user'
+    slug_field = 'username'
+    slug_url_kwarg = 'username'
+    fields = ['username']
 
 
 class FollowView(LoginRequiredMixin, View):
