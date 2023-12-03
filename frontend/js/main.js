@@ -154,9 +154,9 @@ $(document)
                 password2: password2.val()
             },
             function () {
-                setTimeout(() => {
-                    location.reload(true)
-                }, 500)
+                // setTimeout(() => {
+                //     location.reload(true)
+                // }, 500)
                 email.val('');
                 username.val('');
                 password1.val('');
