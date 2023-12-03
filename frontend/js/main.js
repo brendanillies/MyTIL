@@ -28,16 +28,17 @@ $.ajaxSetup({
     },
 });
 
-$(document).on('click', '.js-toggle-modal', function(e) {
+$(document)
+.on('click', '.js-toggle-post-modal', function(e) {
     e.preventDefault();
-    $('.js-modal').toggleClass('hidden');
+    $('.js-post-modal').toggleClass('hidden');
 })
-.on('click', '.js-submit', function(e) {
+.on('click', '.js-post-submit', function(e) {
     e.preventDefault();
 
     const postTextArea = $('.js-post-text');
     const $btn = $(this);
-    const modal = $('.js-modal')
+    const modal = $('.js-post-modal')
 
     if (!postTextArea.val().trim().length) {
         return false
@@ -89,4 +90,49 @@ $(document).on('click', '.js-toggle-modal', function(e) {
             console.warn(error);
         }
     })
+})
+.on('click', '.js-toggle-login-modal', function(e) {
+    e.preventDefault();
+    console.log($('.js-signup-modal').hasClass('hidden'))
+    if (!$('.js-signup-modal').hasClass('hidden')) {
+        $('.js-signup-modal').toggleClass('hidden')
+    }
+
+    $('.js-login-modal').toggleClass('hidden');
+})
+.on('click', '.js-login-submit', function(e) {
+    e.preventDefault();
+
+    const modal = $('.js-login-modal');
+    const login = $('#email');
+    const password = $('#password');
+
+    $.ajax({
+        type: 'POST',
+        url: $(this).data('url'),
+        data: {
+            login: login.val(),
+            password: password.val()
+        },
+        success: (data) => {
+            login.val('');
+            password.val('');
+            modal.toggleClass('hidden'); 
+            location.reload(true);
+        },
+        error: (error) => {
+            console.warn(error)
+        }
+    })
+})
+// TODO: Add redirect to signup modal
+.on('click', '.js-toggle-signup-modal', function(e) {
+    e.preventDefault();
+
+    if (!$('.js-login-modal').hasClass('hidden')) {
+        $('.js-login-modal').toggleClass('hidden')
+    }
+
+    $('.js-signup-modal').toggleClass('hidden');
+
 })

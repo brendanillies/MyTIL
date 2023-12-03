@@ -1,0 +1,80 @@
+{% load allauth account %}
+{% load static %}
+
+<div>
+    <div class="font-medium text-center self-center text-xl sm:text-2xl uppercase text-gray-800 mt-3 mb-2">
+        Register Your Account
+    </div>
+    <div class="mt-10">
+        {% url "signup" as signup_url %}
+        <form action="{{ signup_url }}" method="post">
+            <div class="flex flex-col mb-6">
+                <label for="signup-email" class="mb-1 text-xs sm:text-sm tracking-wide text-gray-600">
+                    E-Mail Address:
+                </label>
+                <div class="relative">
+                    <div class="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
+                        <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                            <path d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+                        </svg>
+                    </div>
+        
+                    <input id="signup-email" type="email" name="signup-email" class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" placeholder="E-Mail Address" />
+                </div>
+            </div>
+            <div class="flex flex-col mb-6">
+                <label for="signup-password" class="mb-1 text-xs sm:text-sm tracking-wide text-gray-600">
+                    Password
+                </label>
+                <div class="relative">
+                    <div class="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
+                        <span>
+                            <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                                <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                            </svg>
+                        </span>
+                    </div>
+        
+                    <input id="signup-password" type="password" name="signup-password" class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" placeholder="Password" />
+                </div>
+            </div>
+            <div class="flex flex-col mb-6">
+                <label for="signup-password-reentry" class="mb-1 text-xs sm:text-sm tracking-wide text-gray-600">
+                    Password (enter again):
+                </label>
+                <div class="relative">
+                    <div class="inline-flex items-center justify-center absolute left-0 top-0 h-full w-10 text-gray-400">
+                        <span>
+                            <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                                <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                            </svg>
+                        </span>
+                    </div>
+        
+                    <input id="signup-password-reentry" type="password" name="signup-password-reentry" class="text-sm sm:text-base placeholder-gray-500 pl-10 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400" placeholder="Password" />
+                </div>
+            </div>
+            <div class="flex">
+                {% comment %} # TODO: Center signup button elements {% endcomment %}
+                <button class="w-full bg-white text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center js-signup-submit" data-url="{{ signup_url }}" type="button">
+                    <span class="mr-2">
+                        Sign-up
+                    </span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="currentcolor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
+                    </svg>
+                </button>
+            </div>
+        </form>
+    </div>
+    <hr class="mt-5">
+    <div class="flex flex-col justify-center items-center mt-2">
+        <button type="button" class="inline-flex items-center font-bold text-blue-500 hover:text-blue-700 text-xs text-center js-toggle-login-modal">
+            {% comment %} # TODO: Add redirect to signup element {% endcomment %}
+            <span>  
+                <i class='bx bx-user-check text-2xl'></i>
+            </span>
+            <span class="ml-2">Already have an account?</span>
+        </button>
+    </div>
+</div>
