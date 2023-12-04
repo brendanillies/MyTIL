@@ -131,7 +131,6 @@ $(document)
                     modal.toggleClass('hidden');
                 }
                 location.reload(true);
-                
             },
             error: (error) => {
                 // TODO: Add UI error message
@@ -161,7 +160,10 @@ $(document)
                 username.val('');
                 password1.val('');
                 password2.val('');
-                modal.toggleClass('hidden');
+                if (!modal.hasClass('hidden')) {
+                    modal.toggleClass('hidden');
+                }
+                location.reload(true);
             }
         )
             .fail(function () {
