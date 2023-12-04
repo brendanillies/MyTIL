@@ -139,7 +139,7 @@ $(document)
     .on('click', '.js-signup-submit', function (e) {
         e.preventDefault();
 
-        const modal = $('.js-login-modal');
+        const modal = $('.js-signup-modal');
         const email = $('#signup-email');
         const username = $('#signup-username');
         const password1 = $('#signup-password');
@@ -154,9 +154,6 @@ $(document)
                 password2: password2.val()
             },
             function () {
-                // setTimeout(() => {
-                //     location.reload(true)
-                // }, 500)
                 email.val('');
                 username.val('');
                 password1.val('');
