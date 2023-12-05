@@ -16,7 +16,7 @@
             {% endthumbnail %}	
         </div>
         <div class="text-center px-3 pb-6 pt-2">
-            <h3 class="text-white text-sm bold font-sans">
+            <h3 class="text-white text-lg bold font-sans">
                 {{ user.username }}
             </h3>
             <div class="mt-1">
@@ -25,12 +25,16 @@
                         {% include 'includes/follow_button.html' %}
                     {% endif %}
                 {% else %}
-                    <span>Login to follow this user</span>
+                    <span>
+                        <button type="button" class="text-white hover:text-gray-800 hover:font-bold transition-transfom ease-in duration-200 js-toggle-login-modal">
+                            Login to follow this user
+                        </button> 
+                    </span>
                 {% endif %}
             </div>
         </div>
-        <div class="flex justify-center pb-3 text-white">
-            <div class="text-center mr-3 border-r pr-3">
+        <div class="flex justify-around pb-3 text-white">
+            <div class="text-center">
                 <h2>{{ total_posts }}</h2>
                 <span>Posts</span>
             </div>
