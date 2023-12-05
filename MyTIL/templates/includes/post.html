@@ -11,7 +11,12 @@
     </div>
     <div class="flex justify-between items-center mt-4">
         {% if show_detail_link %}
-            <a class="text-blue-600 hover:underline" href="{% url 'feed:detail' post.id %}">
+            {% if request.user.is_authenticated %}
+                {% url "feed:detail" post.id as url %}
+            {% else %}
+                {% url "account_login" as url %}
+            {% endif %}
+            <a class="text-blue-600 hover:underline" href="{{ url }}">
                 Read More
             </a>
         {% else %}
