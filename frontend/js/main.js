@@ -132,23 +132,28 @@ $(document)
                 location.reload(true);
             }
         )
-        .fail((error) => {
-            const banner = $('.js-login-errors')
-            banner.empty()
-            const resp = $.parseJSON(error.responseText);
-    
-            // Create errors banner
-            $.each(resp.form.errors, function (index, value) {
-                var p = document.createElement('p');
-                p.textContent = value;
-                banner.append(p);
+            .fail((error) => {
+                const banner = $('.js-login-errors')
+                banner.empty()
+                const parsedResponse = $.parseJSON(error.responseText).form
+                const generalErrors = parsedResponse.errors;
+                const loginErrors = parsedResponse.fields.login.errors;
+                const passwordErrors = parsedResponse.fields.password.errors;
+
+                var formErrors = $.merge(generalErrors, $.merge(loginErrors, passwordErrors))
+
+                // Create errors banner
+                $.each(formErrors, function (index, value) {
+                    var p = document.createElement('p');
+                    p.textContent = value;
+                    banner.append(p);
+                })
+
+                // Un-hide errors banner, if necessary
+                if (banner.hasClass('hidden')) {
+                    banner.toggleClass('hidden');
+                }
             })
-    
-            // Un-hide errors banner, if necessary
-            if (banner.hasClass('hidden')) {
-                banner.toggleClass('hidden');
-            }
-        })
     })
     .on('click', '.js-signup-submit', function (e) {
         e.preventDefault();
@@ -159,7 +164,7 @@ $(document)
         const password1 = $('#signup-password');
         const password2 = $('#signup-password-reentry');
 
-        var jqxhr = $.post(
+        $.post(
             $(this).data('url'),
             {
                 email: email.val(),
