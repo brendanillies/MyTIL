@@ -183,7 +183,29 @@ $(document)
                 location.reload(true);
             }
         )
-            .fail(function () {
-                alert("error");
+            .fail((error) => {
+                const banner = $('.js-signup-errors')
+                banner.empty()
+                const parsedResponse = $.parseJSON(error.responseText).form
+                console.log(parsedResponse)
+                const generalErrors = parsedResponse.errors;
+                const emailErrors = parsedResponse.fields.email.errors;
+                const passwordErrors = parsedResponse.fields.password1.errors;
+                const passwordReentryErrors = parsedResponse.fields.password2.errors;
+                const usernameErrors = parsedResponse.fields.username.errors;
+
+                var formErrors = $.merge(generalErrors, $.merge(emailErrors, $.merge(passwordErrors, $.merge(passwordReentryErrors, usernameErrors))))
+
+                // Create errors banner
+                $.each(formErrors, function (index, value) {
+                    var p = document.createElement('p');
+                    p.textContent = value;
+                    banner.append(p);
+                })
+
+                // Un-hide errors banner, if necessary
+                if (banner.hasClass('hidden')) {
+                    banner.toggleClass('hidden');
+                }
             })
     })
