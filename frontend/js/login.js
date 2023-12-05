@@ -6,6 +6,9 @@ $(() => {
 
         // Hide exit link
         $('.js-toggle-login-exit').toggleClass('hidden');
+
+        // Hide authenticated user banner
+        $('.js-unauth-user').toggleClass('hidden')
     };
 
 })
