@@ -78,7 +78,6 @@
         </div>
         <div class="p-16 w-full">
             {% if request.user.is_anonymous %}
-                {% comment %} # TODO: Make this a banner element {% endcomment %}
                 <div class="bg-red-100 border-t border-b border-red-500 text-red-700 px-4 py-3 js-unauth-user" role="alert">
                     <p class="text-md font-bold">
                         Oops, looks like you aren’t logged in! We’re showing you the most recent 30 posts to show what you’re missing!
