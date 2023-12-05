@@ -93,7 +93,7 @@ $(document)
     })
     .on('click', '.js-toggle-login-modal', function (e) {
         e.preventDefault();
-        console.log($('.js-signup-modal').hasClass('hidden'))
+
         if (!$('.js-signup-modal').hasClass('hidden')) {
             $('.js-signup-modal').toggleClass('hidden')
         }
@@ -117,24 +117,36 @@ $(document)
         const login = $('#email');
         const password = $('#password');
 
-        $.ajax({
-            type: 'POST',
-            url: $(this).data('url'),
-            data: {
+        $.post(
+            $(this).data('url'),
+            {
                 login: login.val(),
                 password: password.val()
             },
-            success: (data) => {
+            () => {
                 login.val('');
                 password.val('');
                 if (!modal.hasClass('hidden')) {
                     modal.toggleClass('hidden');
                 }
                 location.reload(true);
-            },
-            error: (error) => {
-                // TODO: Add UI error message
-                console.warn(error)
+            }
+        )
+        .fail((error) => {
+            const banner = $('.js-login-errors')
+            banner.empty()
+            const resp = $.parseJSON(error.responseText);
+    
+            // Create errors banner
+            $.each(resp.form.errors, function (index, value) {
+                var p = document.createElement('p');
+                p.textContent = value;
+                banner.append(p);
+            })
+    
+            // Un-hide errors banner, if necessary
+            if (banner.hasClass('hidden')) {
+                banner.toggleClass('hidden');
             }
         })
     })
