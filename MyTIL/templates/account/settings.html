@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% load allauth %}
+
+{% block title %}
+    Account Settings - {{ user.username }}
+{% endblock title %}
+
+{% block body %}
+    {% comment %} # TODO: Add hero card with profile banner image {% endcomment %}
+    <div class="settings-container">
+        <!-- component is from https://tailwindcomponents.com/component/responsive-form-4 -->
+        <div class="bg-gray-100 flex item-center">
+            <div class="container max-w-screen-lg mx-auto">
+                <div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
+                    <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
+                        <div class="text-gray-600">
+                            <p class="font-medium text-lg">Change Password</p>
+                        </div>
+                        <div class="lg:col-span-2">
+                            {% url 'account_change_password' as password_change_url %}
+                            <form action="{{ password_change_url }}" method="post">
+                                {% csrf_token %}
+                                <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
+                                    <div class="md:col-span-5">
+                                        <label for="password">Password</label>
+                                        <input type="text" name="password" id="password" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" />
+                                    </div>
+                                    <div class="md:col-span-5">
+                                        <label for="password-reentry">Password (enter again):</label>
+                                        <input type="text" name="password-reentry" id="password-reentry" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" />
+                                    </div>
+                                    <div class="md:col-span-5 text-right">
+                                        <div class="inline-flex items-end">
+                                            {% comment %} # TODO: Create new button element to include {% endcomment %}
+                                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded js-password-change-submit">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-gray-100 flex item-center">
+            <div class="container max-w-screen-lg mx-auto">
+                <div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
+                    <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
+                        <div class="text-gray-600">
+                            <p class="font-medium text-lg">Change Email</p>
+                        </div>
+                        <div class="lg:col-span-2">
+                            {% comment %} # TODO: Find email change url {% endcomment %}
+                            {% url 'email_change_url' as email_change_url %}
+                            <form action="{{ email_change_url }}" method="post">
+                                {% csrf_token %}
+                                <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
+                                    <div class="md:col-span-5">
+                                        <label for="current-email">Current Email</label>
+                                        <input type="text" name="current-email" id="current-email" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="{{ user.email }}" disabled />
+                                    </div>
+                                    <div class="md:col-span-5">
+                                        <label for="email">Email</label>
+                                        <input type="text" name="email" id="email" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" />
+                                    </div>
+                                    <div class="md:col-span-5 text-right">
+                                        <div class="inline-flex items-end">
+                                            {% comment %} # TODO: Create new button element to include {% endcomment %}
+                                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded js-email-change-submit">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock body %}

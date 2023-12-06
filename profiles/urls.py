@@ -6,6 +6,6 @@ app_name = 'profiles'
 
 urlpatterns = [
     path('<str:username>/', views.ProfileDetailView.as_view(), name='detail'),
-    path('settings/<str:username>/', views.ProfileSettingsView.as_view(), name='settings'),
+    path('account/<str:username>/', views.ProfileSettingsView.as_view(), name='account'),
     path('<str:username>/follow', views.FollowView.as_view(), name='follow'),
 ]

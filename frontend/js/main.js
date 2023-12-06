@@ -288,3 +288,11 @@ $(document)
                 })
             })
     })
+    .on('click', '.js-password-change-submit', function (e) {
+        e.preventDefault();
+
+    })
+    .on('click', '.js-email-change-submit', function (e) {
+        e.preventDefault();
+
+    })

@@ -32,7 +32,7 @@ class ProfileDetailView(DetailView):
 
 class ProfileSettingsView(UpdateView):
     http_method_names = ['get', 'post']
-    template_name = 'account/email_change.html'
+    template_name = 'account/settings.html'
     model = User
     context_object_name = 'user'
     slug_field = 'username'
