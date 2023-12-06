@@ -98,6 +98,19 @@ $(document)
             $('.js-signup-modal').toggleClass('hidden')
         }
 
+        const errorBannerClasses = [
+            'general',
+            'login',
+            'password'
+        ]
+        $.each(errorBannerClasses, function (index, value) {
+            const banner = $(`.js-login-${value}-errors`)
+            banner.empty();
+            if (!banner.hasClass('hidden')) {
+                banner.toggleClass('hidden');
+            }
+        })
+
         $('.js-login-modal').toggleClass('hidden');
     })
     .on('click', '.js-toggle-signup-modal', function (e) {
@@ -106,6 +119,21 @@ $(document)
         if (!$('.js-login-modal').hasClass('hidden')) {
             $('.js-login-modal').toggleClass('hidden')
         }
+
+        const errorBannerClasses = [
+            'general',
+            'email',
+            'username',
+            'password',
+            'password-reentry'
+        ]
+        $.each(errorBannerClasses, function (index, value) {
+            const banner = $(`.js-signup-${value}-errors`)
+            banner.empty();
+            if (!banner.hasClass('hidden')) {
+                banner.toggleClass('hidden');
+            }
+        })
 
         $('.js-signup-modal').toggleClass('hidden');
 
@@ -133,26 +161,49 @@ $(document)
             }
         )
             .fail((error) => {
-                const banner = $('.js-login-errors')
-                banner.empty()
+
                 const parsedResponse = $.parseJSON(error.responseText).form
-                const generalErrors = parsedResponse.errors;
-                const loginErrors = parsedResponse.fields.login.errors;
-                const passwordErrors = parsedResponse.fields.password.errors;
-
-                var formErrors = $.merge(generalErrors, $.merge(loginErrors, passwordErrors))
-
-                // Create errors banner
-                $.each(formErrors, function (index, value) {
-                    var p = document.createElement('p');
-                    p.textContent = value;
-                    banner.append(p);
-                })
-
-                // Un-hide errors banner, if necessary
-                if (banner.hasClass('hidden')) {
-                    banner.toggleClass('hidden');
+                const errorObj = {
+                    'general': {
+                        'errorClass': '.js-login-general-errors',
+                        'errors': parsedResponse.errors
+                    },
+                    'login': {
+                        'errorClass': '.js-login-login-errors',
+                        'errors': parsedResponse.fields.login.errors
+                    },
+                    'password': {
+                        'errorClass': '.js-login-password-errors',
+                        'errors': parsedResponse.fields.password.errors
+                    }
                 }
+                $.each(errorObj, function (index, value) {
+                    // Create errors banner
+                    var banner = $(value.errorClass);
+                    banner.empty()
+
+                    $.each(value.errors, function (index, errors) {
+                        if (errors.length = 1) {
+                            var p = document.createElement('p');
+                            p.textContent = errors;
+                            banner.append(p);
+                        } else if (errors.length > 1) {
+                            var ul = document.createElement('ul')
+    
+                            $.each(errors, function (index, error) {
+                                var li = document.createElement('li')
+                                li.textContent = error
+                                ul.appendChild(li)
+                            });
+                            banner.append(ul)
+                        }
+                    })
+
+                    // Un-hide errors banner, if necessary
+                    if (value.errors.length >= 1 && banner.hasClass('hidden')) {
+                        banner.toggleClass('hidden');
+                    };
+                })
             })
     })
     .on('click', '.js-signup-submit', function (e) {
@@ -184,28 +235,56 @@ $(document)
             }
         )
             .fail((error) => {
-                const banner = $('.js-signup-errors')
-                banner.empty()
+
                 const parsedResponse = $.parseJSON(error.responseText).form
-                console.log(parsedResponse)
-                const generalErrors = parsedResponse.errors;
-                const emailErrors = parsedResponse.fields.email.errors;
-                const passwordErrors = parsedResponse.fields.password1.errors;
-                const passwordReentryErrors = parsedResponse.fields.password2.errors;
-                const usernameErrors = parsedResponse.fields.username.errors;
-
-                var formErrors = $.merge(generalErrors, $.merge(emailErrors, $.merge(passwordErrors, $.merge(passwordReentryErrors, usernameErrors))))
-
-                // Create errors banner
-                $.each(formErrors, function (index, value) {
-                    var p = document.createElement('p');
-                    p.textContent = value;
-                    banner.append(p);
-                })
-
-                // Un-hide errors banner, if necessary
-                if (banner.hasClass('hidden')) {
-                    banner.toggleClass('hidden');
+                const errorObj = {
+                    'general': {
+                        'errorClass': '.js-signup-general-errors',
+                        'errors': parsedResponse.errors
+                    },
+                    'email': {
+                        'errorClass': '.js-signup-email-errors',
+                        'errors': parsedResponse.fields.email.errors
+                    },
+                    'username': {
+                        'errorClass': '.js-signup-username-errors',
+                        'errors': parsedResponse.fields.username.errors
+                    },
+                    'password1': {
+                        'errorClass': '.js-signup-password-errors',
+                        'errors': parsedResponse.fields.password1.errors
+                    },
+                    'password2': {
+                        'errorClass': '.js-signup-password-reentry-errors',
+                        'errors': parsedResponse.fields.password2.errors
+                    }
                 }
+                $.each(errorObj, function (index, value) {
+                    // Create errors banner
+                    var banner = $(value.errorClass);
+                    banner.empty()
+
+                    $.each(value.errors, function (index, errors) {
+                        if (errors.length = 1) {
+                            var p = document.createElement('p');
+                            p.textContent = errors;
+                            banner.append(p);
+                        } else if (errors.length > 1) {
+                            var ul = document.createElement('ul')
+    
+                            $.each(errors, function (index, error) {
+                                var li = document.createElement('li')
+                                li.textContent = error
+                                ul.appendChild(li)
+                            });
+                            banner.append(ul)
+                        }
+                    })
+
+                    // Un-hide errors banner, if necessary
+                    if (value.errors.length >= 1 && banner.hasClass('hidden')) {
+                        banner.toggleClass('hidden');
+                    };
+                })
             })
     })
