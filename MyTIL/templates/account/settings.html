@@ -28,7 +28,8 @@
             </div>
         </div>
     </div>
-    <div class="grid grid-cols-2 gap-2">
+    {% comment %} # TODO: Fix grid placement {% endcomment %}
+    <div class="grid grid-cols-2 grid-rows-2 gap-2">
         <div class="posts-container">
             <p class="font-medium text-2xl mb-2">
                 Posts
@@ -83,115 +84,105 @@
         <p class="font-medium text-2xl mb-2">
             Settings
         </p>
-        {% comment %} # TODO: Flex elements {% endcomment %}
         <!-- component is from https://tailwindcomponents.com/component/responsive-form-4 -->
-        <div class="bg-gray-100 flex item-center">
-            <div class="container max-w-screen-lg mx-auto">
-                <div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
-                    <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
-                        <div class="text-gray-600">
-                            <p class="font-medium text-lg">Change Profile Images</p>
-                        </div>
-                        <div class="lg:col-span-2">
-                            {% comment %} # TODO: Create image change url {% endcomment %}
-                            {% url 'image_change_url' as image_change_url %}
-                            <form action="{{ password_change_url }}" method="post">
-                                {% csrf_token %}
-                                <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
-                                    <div class="md:col-span-5">
-                                        <label for="profile-image">Profile Image</label>
-                                        <div class="image-container flex justify-between items-center">
-                                            {% comment %} # TODO: make file upload {% endcomment %}
-                                            {% thumbnail user.profile.image "1000x1000" crop="center" as im %}
-                                                <img class="mt-1 mx-4 w-20 h-20 object-cover rounded-full hidden sm:block" alt="avatar" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
-                                            {% endthumbnail %}
-                                            <input type="text" name="profile-image" id="profile-image" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="{{ user.profile.image }}" />
-                                        </div>
-                                    </div>
-                                    <div class="md:col-span-5">
-                                        <label for="banner-image">Banner Image</label>
+        <div class="flex justify-start flex-wrap">
+            <div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6 ml-3">
+                <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
+                    <div class="text-gray-600">
+                        <p class="font-medium text-lg">Change Profile Images</p>
+                    </div>
+                    <div class="lg:col-span-2">
+                        {% comment %} # TODO: Create image change url {% endcomment %}
+                        {% url 'image_change_url' as image_change_url %}
+                        <form action="{{ password_change_url }}" method="post">
+                            {% csrf_token %}
+                            <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
+                                <div class="md:col-span-5">
+                                    <label for="profile-image">Profile Image</label>
+                                    <div class="image-container flex justify-between items-center">
                                         {% comment %} # TODO: make file upload {% endcomment %}
-                                        {% thumbnail user.profile.image "1000x500" crop="center" as im %}
-                                            <img class="my-1 w-full object-cover rounded-lg hidden sm:block" alt="avatar" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+                                        {% thumbnail user.profile.image "1000x1000" crop="center" as im %}
+                                            <img class="mt-1 mx-4 w-20 h-20 object-cover rounded-full hidden sm:block" alt="avatar" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
                                         {% endthumbnail %}
-                                        <input type="text" name="banner-image" id="banner-image" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="{{ user.profile.image }}" />
-                                    </div>
-                                    <div class="md:col-span-5 text-right">
-                                        <div class="inline-flex items-end">
-                                            {% comment %} # TODO: Create new button element to include {% endcomment %}
-                                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded js-profile-image-change-submit">Submit</button>
-                                        </div>
+                                        <input type="text" name="profile-image" id="profile-image" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="{{ user.profile.image }}" />
                                     </div>
                                 </div>
-                            </form>
-                        </div>
+                                <div class="md:col-span-5">
+                                    <label for="banner-image">Banner Image</label>
+                                    {% comment %} # TODO: make file upload {% endcomment %}
+                                    {% comment %} # TODO: Change banner image size {% endcomment %}
+                                    {% thumbnail user.profile.image "1000x500" crop="center" as im %}
+                                        <img class="my-1 w-full h-24 object-cover rounded-lg hidden sm:block" alt="avatar" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+                                    {% endthumbnail %}
+                                    <input type="text" name="banner-image" id="banner-image" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="{{ user.profile.image }}" />
+                                </div>
+                                <div class="md:col-span-5 text-right">
+                                    <div class="inline-flex items-end">
+                                        {% comment %} # TODO: Create new button element to include {% endcomment %}
+                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded js-profile-image-change-submit">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="bg-gray-100 flex item-center">
-            <div class="container max-w-screen-lg mx-auto">
-                <div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
-                    <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
-                        <div class="text-gray-600">
-                            <p class="font-medium text-lg">Change Password</p>
-                        </div>
-                        <div class="lg:col-span-2">
-                            {% url 'account_change_password' as password_change_url %}
-                            <form action="{{ password_change_url }}" method="post">
-                                {% csrf_token %}
-                                <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
-                                    <div class="md:col-span-5">
-                                        <label for="password">Password</label>
-                                        <input type="text" name="password" id="password" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" />
-                                    </div>
-                                    <div class="md:col-span-5">
-                                        <label for="password-reentry">Password (enter again):</label>
-                                        <input type="text" name="password-reentry" id="password-reentry" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" />
-                                    </div>
-                                    <div class="md:col-span-5 text-right">
-                                        <div class="inline-flex items-end">
-                                            {% comment %} # TODO: Create new button element to include {% endcomment %}
-                                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded js-password-change-submit">Submit</button>
-                                        </div>
+            <div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6 ml-3">
+                <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
+                    <div class="text-gray-600">
+                        <p class="font-medium text-lg">Change Password</p>
+                    </div>
+                    <div class="lg:col-span-2">
+                        {% url 'account_change_password' as password_change_url %}
+                        <form action="{{ password_change_url }}" method="post">
+                            {% csrf_token %}
+                            <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
+                                <div class="md:col-span-5">
+                                    <label for="password">Password</label>
+                                    <input type="text" name="password" id="password" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" />
+                                </div>
+                                <div class="md:col-span-5">
+                                    <label for="password-reentry">Password (enter again):</label>
+                                    <input type="text" name="password-reentry" id="password-reentry" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" />
+                                </div>
+                                <div class="md:col-span-5 text-right">
+                                    <div class="inline-flex items-end">
+                                        {% comment %} # TODO: Create new button element to include {% endcomment %}
+                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded js-password-change-submit">Submit</button>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="bg-gray-100 flex item-center">
-            <div class="container max-w-screen-lg mx-auto">
-                <div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
-                    <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
-                        <div class="text-gray-600">
-                            <p class="font-medium text-lg">Change Email</p>
-                        </div>
-                        <div class="lg:col-span-2">
-                            {% comment %} # TODO: Find email change url {% endcomment %}
-                            {% url 'email_change_url' as email_change_url %}
-                            <form action="{{ email_change_url }}" method="post">
-                                {% csrf_token %}
-                                <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
-                                    <div class="md:col-span-5">
-                                        <label for="current-email">Current Email</label>
-                                        <input type="text" name="current-email" id="current-email" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="{{ user.email }}" disabled />
-                                    </div>
-                                    <div class="md:col-span-5">
-                                        <label for="email">Email</label>
-                                        <input type="text" name="email" id="email" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" />
-                                    </div>
-                                    <div class="md:col-span-5 text-right">
-                                        <div class="inline-flex items-end">
-                                            {% comment %} # TODO: Create new button element to include {% endcomment %}
-                                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded js-email-change-submit">Submit</button>
-                                        </div>
+            <div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6 ml-3">
+                <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
+                    <div class="text-gray-600">
+                        <p class="font-medium text-lg">Change Email</p>
+                    </div>
+                    <div class="lg:col-span-2">
+                        {% comment %} # TODO: Find email change url {% endcomment %}
+                        {% url 'email_change_url' as email_change_url %}
+                        <form action="{{ email_change_url }}" method="post">
+                            {% csrf_token %}
+                            <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
+                                <div class="md:col-span-5">
+                                    <label for="current-email">Current Email</label>
+                                    <input type="text" name="current-email" id="current-email" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="{{ user.email }}" disabled />
+                                </div>
+                                <div class="md:col-span-5">
+                                    <label for="email">Email</label>
+                                    <input type="text" name="email" id="email" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" />
+                                </div>
+                                <div class="md:col-span-5 text-right">
+                                    <div class="inline-flex items-end">
+                                        {% comment %} # TODO: Create new button element to include {% endcomment %}
+                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded js-email-change-submit">Submit</button>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
