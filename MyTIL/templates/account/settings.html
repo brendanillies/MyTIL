@@ -33,6 +33,16 @@
             <p class="font-medium text-2xl mb-2">
                 Posts
                 {% comment %} # TODO: Add most recent posts with option to view all {% endcomment %}
+                {% if posts %}
+                    {% for post in posts %}
+                        {% include "includes/post.html" with post=post show_detail_link=True %}
+                    {% endfor %}
+                {% else %}
+                    <p class="font-medium text-lg ml-3">
+                        {% comment %} # TODO: Add new post link to `first` {% endcomment %}
+                        You haven't made any posts yet. Create your <span class="hover:underline">first!</span>
+                    </p>
+                {% endif %}
             </p>
         </div>
         <div class="follow-container">
@@ -40,12 +50,31 @@
                 <p class="font-medium text-2xl mb-2">
                     Followers
                     {% comment %} # TODO: Add users following user with option to view all {% endcomment %}
+                    {% if followed_by %}
+                        {% for follower in followed_by %}
+                            ...
+                        {% endfor %}
+                    {% else %}
+                        <p class="font-medium text-lg ml-3">
+                            Insert sad face here. You don't have any followers yet!
+                        </p>
+                    {% endif %}
                 </p>
             </div>
             <div class="following-container">
                 <p class="font-medium text-2xl mb-2">
                     Following
                     {% comment %} # TODO: Add users being followed with option to view all {% endcomment %}
+                    {% if following %}
+                        {% for user in following %}
+                            ...
+                        {% endfor %}
+                    {% else %}
+                        <p class="font-medium text-lg ml-3">
+                            Discovers users to follow!
+                            {% comment %} # TODO: Add user search {% endcomment %}
+                        </p>
+                    {% endif %}
                 </p>
             </div>
         </div>
@@ -54,6 +83,7 @@
         <p class="font-medium text-2xl mb-2">
             Settings
         </p>
+        {% comment %} # TODO: Flex elements {% endcomment %}
         <!-- component is from https://tailwindcomponents.com/component/responsive-form-4 -->
         <div class="bg-gray-100 flex item-center">
             <div class="container max-w-screen-lg mx-auto">
