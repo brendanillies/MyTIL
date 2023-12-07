@@ -8,7 +8,42 @@
 
 {% block body %}
     {% comment %} # TODO: Add hero card with profile banner image {% endcomment %}
+    {% comment %} # TODO: Fix username positioning relative to hero container and user element container {% endcomment %}
+    <div class="hero">
+        {% thumbnail user.profile.image "1000x250" crop="center" as im %}
+            <img class="w-full object-cover rounded-lg hidden sm:block opacity-[.4]" alt="avatar" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+        {% endthumbnail %}
+        {% thumbnail user.profile.image "200x200" crop="center" as im %}
+            <img class="object-cover rounded-full hidden sm:block" alt="avatar" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+        {% endthumbnail %}
+        <p class="font-medium text-2xl">{{ user.username }}</p>
+    </div>
+    <div class="grid grid-cols-2 gap-2">
+        <div class="posts-container">
+            <p class="font-medium text-2xl mb-2">
+                Posts
+                {% comment %} # TODO: Add most recent posts with option to view all {% endcomment %}
+            </p>
+        </div>
+        <div class="follow-container">
+            <div class="followers-container">
+                <p class="font-medium text-2xl mb-2">
+                    Followers
+                    {% comment %} # TODO: Add users following user with option to view all {% endcomment %}
+                </p>
+            </div>
+            <div class="following-container">
+                <p class="font-medium text-2xl mb-2">
+                    Following
+                    {% comment %} # TODO: Add users being followed with option to view all {% endcomment %}
+                </p>
+            </div>
+        </div>
+    </div>
     <div class="settings-container">
+        <p class="font-medium text-2xl mb-2">
+            Settings
+        </p>
         <!-- component is from https://tailwindcomponents.com/component/responsive-form-4 -->
         <div class="bg-gray-100 flex item-center">
             <div class="container max-w-screen-lg mx-auto">
