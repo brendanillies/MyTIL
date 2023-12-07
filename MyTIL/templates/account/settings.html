@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load allauth %}
+{% load allauth thumbnail %}
 
 {% block title %}
     Account Settings - {{ user.username }}
@@ -10,6 +10,50 @@
     {% comment %} # TODO: Add hero card with profile banner image {% endcomment %}
     <div class="settings-container">
         <!-- component is from https://tailwindcomponents.com/component/responsive-form-4 -->
+        <div class="bg-gray-100 flex item-center">
+            <div class="container max-w-screen-lg mx-auto">
+                <div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
+                    <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
+                        <div class="text-gray-600">
+                            <p class="font-medium text-lg">Change Profile Images</p>
+                        </div>
+                        <div class="lg:col-span-2">
+                            {% comment %} # TODO: Create image change url {% endcomment %}
+                            {% url 'image_change_url' as image_change_url %}
+                            <form action="{{ password_change_url }}" method="post">
+                                {% csrf_token %}
+                                <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
+                                    <div class="md:col-span-5">
+                                        <label for="profile-image">Profile Image</label>
+                                        <div class="image-container flex justify-between items-center">
+                                            {% comment %} # TODO: make file upload {% endcomment %}
+                                            {% thumbnail user.profile.image "1000x1000" crop="center" as im %}
+                                                <img class="mt-1 mx-4 w-20 h-20 object-cover rounded-full hidden sm:block" alt="avatar" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+                                            {% endthumbnail %}
+                                            <input type="text" name="profile-image" id="profile-image" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="{{ user.profile.image }}" />
+                                        </div>
+                                    </div>
+                                    <div class="md:col-span-5">
+                                        <label for="banner-image">Banner Image</label>
+                                        {% comment %} # TODO: make file upload {% endcomment %}
+                                        {% thumbnail user.profile.image "1000x500" crop="center" as im %}
+                                            <img class="my-1 w-full object-cover rounded-lg hidden sm:block" alt="avatar" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+                                        {% endthumbnail %}
+                                        <input type="text" name="banner-image" id="banner-image" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="{{ user.profile.image }}" />
+                                    </div>
+                                    <div class="md:col-span-5 text-right">
+                                        <div class="inline-flex items-end">
+                                            {% comment %} # TODO: Create new button element to include {% endcomment %}
+                                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded js-profile-image-change-submit">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="bg-gray-100 flex item-center">
             <div class="container max-w-screen-lg mx-auto">
                 <div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
