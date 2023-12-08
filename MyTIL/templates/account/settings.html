@@ -32,7 +32,7 @@
     <div class="grid grid-cols-2 grid-rows-2 gap-2">
         <div class="posts-container">
             <p class="font-medium text-2xl mb-2">
-                Posts
+                Posts <span class="text-lg">({{ total_posts }})</span>
                 {% comment %} # TODO: Add most recent posts with option to view all {% endcomment %}
             </p>
             <div class="ml-3">
@@ -51,7 +51,7 @@
         <div class="follow-container">
             <div class="followers-container">
                 <p class="font-medium text-2xl mb-2">
-                    Followers
+                    Followers <span class="text-lg">({{ total_followers }})</span>
                     {% comment %} # TODO: Add users following user with option to view all {% endcomment %}
                 </p>
                 <div class="ml-3">
@@ -68,7 +68,7 @@
             </div>
             <div class="following-container">
                 <p class="font-medium text-2xl mb-2">
-                    Following
+                    Following <span class="text-lg">({{ total_following }})</span>
                     {% comment %} # TODO: Add users being followed with option to view all {% endcomment %}
                 </p>
                 <div class="ml-3">
@@ -78,7 +78,7 @@
                         {% endfor %}
                     {% else %}
                         <p class="font-medium text-lg">
-                            Discovers users to follow!
+                            Discover users to follow!
                             {% comment %} # TODO: Add user search {% endcomment %}
                         </p>
                     {% endif %}
