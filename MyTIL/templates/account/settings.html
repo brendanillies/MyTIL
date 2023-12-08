@@ -34,49 +34,55 @@
             <p class="font-medium text-2xl mb-2">
                 Posts
                 {% comment %} # TODO: Add most recent posts with option to view all {% endcomment %}
+            </p>
+            <div class="ml-3">
                 {% if posts %}
                     {% for post in posts %}
                         {% include "includes/post.html" with post=post show_detail_link=True %}
                     {% endfor %}
                 {% else %}
-                    <p class="font-medium text-lg ml-3">
+                    <p class="font-medium text-lg">
                         {% comment %} # TODO: Add new post link to `first` {% endcomment %}
                         You haven't made any posts yet. Create your <span class="hover:underline">first!</span>
                     </p>
                 {% endif %}
-            </p>
+            </div>
         </div>
         <div class="follow-container">
             <div class="followers-container">
                 <p class="font-medium text-2xl mb-2">
                     Followers
                     {% comment %} # TODO: Add users following user with option to view all {% endcomment %}
-                    {% if followed_by %}
-                        {% for follower in followed_by %}
+                </p>
+                <div class="ml-3">
+                    {% if followers %}
+                        {% for follower in followers %}
                             ...
                         {% endfor %}
                     {% else %}
-                        <p class="font-medium text-lg ml-3">
+                        <p class="font-medium text-lg">
                             Insert sad face here. You don't have any followers yet!
                         </p>
-                    {% endif %}
-                </p>
+                </div>    
+                {% endif %}
             </div>
             <div class="following-container">
                 <p class="font-medium text-2xl mb-2">
                     Following
                     {% comment %} # TODO: Add users being followed with option to view all {% endcomment %}
+                </p>
+                <div class="ml-3">
                     {% if following %}
                         {% for user in following %}
                             ...
                         {% endfor %}
                     {% else %}
-                        <p class="font-medium text-lg ml-3">
+                        <p class="font-medium text-lg">
                             Discovers users to follow!
                             {% comment %} # TODO: Add user search {% endcomment %}
                         </p>
                     {% endif %}
-                </p>
+                </div>
             </div>
         </div>
     </div>
