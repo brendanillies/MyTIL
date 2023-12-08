@@ -30,7 +30,7 @@
     </div>
     {% comment %} # TODO: Fix grid placement {% endcomment %}
     <div class="grid grid-cols-2 grid-rows-2 gap-2">
-        <div class="posts-container">
+        <div class="posts-container row-span-2">
             <p class="font-medium text-2xl mb-2">
                 Posts <span class="text-lg">({{ total_posts }})</span>
                 {% comment %} # TODO: Add most recent posts with option to view all {% endcomment %}
@@ -48,8 +48,8 @@
                 {% endif %}
             </div>
         </div>
-        <div class="follow-container">
-            <div class="followers-container">
+        <div class="follow-container row-span-2">
+            <div class="followers-container col-start-1 col-end-2">
                 <p class="font-medium text-2xl mb-2">
                     Followers <span class="text-lg">({{ total_followers }})</span>
                     {% comment %} # TODO: Add users following user with option to view all {% endcomment %}
@@ -63,10 +63,10 @@
                         <p class="font-medium text-lg">
                             Insert sad face here. You don't have any followers yet!
                         </p>
+                    {% endif %}
                 </div>    
-                {% endif %}
             </div>
-            <div class="following-container">
+            <div class="following-container col-start-3 col-end-4">
                 <p class="font-medium text-2xl mb-2">
                     Following <span class="text-lg">({{ total_following }})</span>
                     {% comment %} # TODO: Add users being followed with option to view all {% endcomment %}
