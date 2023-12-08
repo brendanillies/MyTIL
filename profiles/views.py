@@ -1,3 +1,4 @@
+import random 
 from django.contrib.auth.models import User
 from django.views.generic import DetailView, UpdateView, View
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -30,7 +31,7 @@ class ProfileDetailView(DetailView):
         return context
 
 
-class ProfileSettingsView(UpdateView):
+class ProfileSettingsView(LoginRequiredMixin, UpdateView):
     http_method_names = ['get', 'post']
     template_name = 'account/settings.html'
     model = User
@@ -38,6 +39,22 @@ class ProfileSettingsView(UpdateView):
     slug_field = 'username'
     slug_url_kwarg = 'username'
     fields = ['username']
+    
+    def get_context_data(self, **kwargs):
+        user = self.get_object()
+        context = super().get_context_data(**kwargs)
+
+        # Get followers
+        followers = Follower.objects.filter(following=user)
+        context['total_followers'] = followers.count()
+        context['followers'] = random.sample(list(followers), 5)
+
+        # Get users followed by authenticated user
+        following = Follower.objects.filter(followed_by=user)
+        context['total_following'] = following.count()
+        context['following'] = random.sample(list(following), 5)
+
+        return context
 
 
 class FollowView(LoginRequiredMixin, View):
