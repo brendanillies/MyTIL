@@ -47,12 +47,12 @@ class ProfileSettingsView(LoginRequiredMixin, UpdateView):
         # Get followers
         followers = Follower.objects.filter(following=user)
         context['total_followers'] = followers.count()
-        context['followers'] = random.sample(list(followers), 5)
+        context['followers'] = random.sample(list(followers), min(5, len(followers)))
 
         # Get users followed by authenticated user
         following = Follower.objects.filter(followed_by=user)
         context['total_following'] = following.count()
-        context['following'] = random.sample(list(following), 5)
+        context['following'] = random.sample(list(following), min(5, len(following)))
 
         return context
 

@@ -57,7 +57,7 @@
                 <div class="ml-3">
                     {% if followers %}
                         {% for follower in followers %}
-                            ...
+                            {% include "includes/cards/followers.html" with follower=follower.followed_by %}
                         {% endfor %}
                     {% else %}
                         <p class="font-medium text-lg">
@@ -73,8 +73,8 @@
                 </p>
                 <div class="ml-3">
                     {% if following %}
-                        {% for user in following %}
-                            ...
+                        {% for follow in following %}
+                            {% include "includes/cards/following.html" with user=follow.following  %}
                         {% endfor %}
                     {% else %}
                         <p class="font-medium text-lg">
