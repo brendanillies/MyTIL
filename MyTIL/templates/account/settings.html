@@ -29,8 +29,8 @@
         </div>
     </div>
     {% comment %} # TODO: Fix grid placement {% endcomment %}
-    <div class="grid grid-cols-2 grid-rows-2 gap-2">
-        <div class="posts-container row-span-2">
+    <div class="grid grid-cols-2 gap-4">
+        <div class="posts-container row-span-2 row-start-1">
             <p class="font-medium text-2xl mb-2">
                 Posts <span class="text-lg">({{ total_posts }})</span>
                 {% comment %} # TODO: Add most recent posts with option to view all {% endcomment %}
@@ -48,41 +48,45 @@
                 {% endif %}
             </div>
         </div>
-        <div class="follow-container row-span-2">
-            <div class="followers-container col-start-1 col-end-2">
-                <p class="font-medium text-2xl mb-2">
-                    Followers <span class="text-lg">({{ total_followers }})</span>
-                    {% comment %} # TODO: Add users following user with option to view all {% endcomment %}
-                </p>
-                <div class="ml-3">
-                    {% if followers %}
-                        {% for follower in followers %}
-                            {% include "includes/cards/followers.html" with follower=follower.followed_by %}
-                        {% endfor %}
-                    {% else %}
-                        <p class="font-medium text-lg">
-                            Insert sad face here. You don't have any followers yet!
-                        </p>
-                    {% endif %}
-                </div>    
-            </div>
-            <div class="following-container col-start-3 col-end-4">
-                <p class="font-medium text-2xl mb-2">
-                    Following <span class="text-lg">({{ total_following }})</span>
-                    {% comment %} # TODO: Add users being followed with option to view all {% endcomment %}
-                </p>
-                <div class="ml-3">
-                    {% if following %}
-                        {% for follow in following %}
-                            {% include "includes/cards/following.html" with user=follow.following  %}
-                        {% endfor %}
-                    {% else %}
-                        <p class="font-medium text-lg">
-                            Discover users to follow!
+        <div class="followers-container row-span-1 col-start-2">
+            <p class="font-medium text-2xl mb-2">
+                Followers <span class="text-lg">({{ total_followers }})</span>
+                {% comment %} # TODO: Add users following user with option to view all {% endcomment %}
+            </p>
+            <div class="ml-3">
+                {% if followers %}
+                    {% for follower in followers %}
+                        {% include "includes/cards/followers.html" with follower=follower.followed_by %}
+                    {% endfor %}
+                {% else %}
+                    <p class="font-medium text-lg">
+                        Insert sad face here. You don't have any followers yet!
+                    </p>
+                {% endif %}
+            </div>    
+        </div>
+        <div class="following-container row-span-1 col-start-2">
+            <p class="font-medium text-2xl mb-2">
+                Following <span class="text-lg">({{ total_following }})</span>
+                {% comment %} # TODO: Add users being followed with option to view all {% endcomment %}
+            </p>
+            <div class="ml-3">
+                {% if following %}
+                    {% for follow in following %}
+                        {% include "includes/cards/following.html" with user=follow.following  %}
+                    {% endfor %}
+                    {% if following|length < max_cards %}
+                        <p class="font-medium text-lg text-center">
+                            Discover more users to follow!
                             {% comment %} # TODO: Add user search {% endcomment %}
                         </p>
                     {% endif %}
-                </div>
+                {% else %}
+                    <p class="font-medium text-lg">
+                        Discover users to follow!
+                        {% comment %} # TODO: Add user search {% endcomment %}
+                    </p>
+                {% endif %}
             </div>
         </div>
     </div>

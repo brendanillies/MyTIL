@@ -44,15 +44,24 @@ class ProfileSettingsView(LoginRequiredMixin, UpdateView):
         user = self.get_object()
         context = super().get_context_data(**kwargs)
 
+        # Define max cards to showcase
+        max_cards = 5
+        context['max_cards'] = max_cards
+
+        # Get posts
+        posts = Post.objects.filter(author=user).order_by('-date')
+        context['total_posts'] = posts.count()
+        context['posts'] = posts[:max_cards]
+
         # Get followers
         followers = Follower.objects.filter(following=user)
         context['total_followers'] = followers.count()
-        context['followers'] = random.sample(list(followers), min(5, len(followers)))
+        context['followers'] = random.sample(list(followers), min(max_cards, len(followers)))
 
         # Get users followed by authenticated user
         following = Follower.objects.filter(followed_by=user)
         context['total_following'] = following.count()
-        context['following'] = random.sample(list(following), min(5, len(following)))
+        context['following'] = random.sample(list(following), min(max_cards, len(following)))
 
         return context
 
