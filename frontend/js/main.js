@@ -296,3 +296,9 @@ $(document)
         e.preventDefault();
 
     })
+
+$('.js-post-text')
+    .on('keyup', function (e) {
+        var count = this.value.length;
+        $('.js-post-character-count').text(`${count} / 240`);
+    })
