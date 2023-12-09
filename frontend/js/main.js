@@ -31,6 +31,8 @@ $.ajaxSetup({
 $(document)
     .on('click', '.js-toggle-post-modal', function (e) {
         e.preventDefault();
+        $('.js-post-text').val('');
+        $('.js-post-character-count').text(0);
         $('.js-post-modal').toggleClass('hidden');
     })
     .on('click', '.js-post-submit', function (e) {
@@ -300,5 +302,5 @@ $(document)
 $('.js-post-text')
     .on('keyup', function (e) {
         var count = this.value.length;
-        $('.js-post-character-count').text(`${count} / 240`);
+        $('.js-post-character-count').text(count);
     })

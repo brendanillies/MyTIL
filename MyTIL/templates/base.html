@@ -107,8 +107,8 @@
                             <textarea class="border-2 border-blue-500 mt-4 w-full js-post-text" placeholder="Enter your post" maxlength="240" rows="3" data-post-url="{% url 'feed:new_post' %}"></textarea>
                         </div>
                         <div class="w-full flex flex-col items-end">
-                            <p class="text-gray-400 js-post-character-count">
-                                0 / 240
+                            <p class="text-gray-400">
+                                <span class="js-post-character-count">0</span> / 240
                             </p>
                             {% include 'includes/post_button.html'%}
                         </div>
