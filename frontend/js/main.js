@@ -309,3 +309,8 @@ $('.js-post-text')
         var count = this.value.length;
         $('.js-post-character-count').text(count);
     })
+
+$('.js-search-modal #search')
+    .on('keyup', function (e) {
+        // TODO: On keystroke, search for users
+    })
