@@ -313,4 +313,10 @@ $('.js-post-text')
 $('.js-search-modal #search')
     .on('keyup', function (e) {
         // TODO: On keystroke, search for users
+        $.get(
+            $(this).data('url'),
+            {
+                
+            }
+        )
     })

@@ -1,6 +1,8 @@
-import random 
+import random
+from typing import Any 
 from django.contrib.auth.models import User
-from django.views.generic import DetailView, UpdateView, View
+from django.db.models.query import QuerySet
+from django.views.generic import DetailView, UpdateView, View, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse, HttpResponseBadRequest
 
@@ -64,6 +66,21 @@ class ProfileSettingsView(LoginRequiredMixin, UpdateView):
         context['following'] = random.sample(list(following), min(max_cards, len(following)))
 
         return context
+    
+
+class SearchView(LoginRequiredMixin, ListView):
+    http_method_names = ['get']
+    model = User
+    template_name = 'profiles/search.html'
+    context_object_name = 'users'
+    slug_field = 'username'
+    slug_url_kwarg = 'username'
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+        username = self.request.GET.get('username')
+        return qs.filter(username__icontains=username)
+
 
 
 class FollowView(LoginRequiredMixin, View):

@@ -133,7 +133,8 @@
                             </svg>
                         </div>
                         <div class="w-full flex items-center">
-                            <input type="text" id="search" name="search" placeholder="Search users..." class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" />
+                            <input type="text" id="search" name="search" placeholder="Search users..." class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" data-url="{% url 'profiles:search' %}"/>
+                            {% comment %} {% if  %}{% endif %} {% endcomment %}
                         </div>
                     </div>
                 </div>

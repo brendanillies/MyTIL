@@ -1,0 +1,5 @@
+{% comment %} {% extends "base.html" %} {% endcomment %}
+
+{% for user in users %}
+    {{ user.username }} {{ user.profile.image }}
+{% endfor %}
