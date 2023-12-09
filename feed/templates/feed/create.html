@@ -8,7 +8,7 @@
         {{ form.as_p }}
         <div>
             <div class="my-3">
-                {% include 'includes/post_button.html' %}
+                {% include "includes/buttons/generic_button.html" with action_display_text="Create Post" action_class_name="js-post-submit" %}
             </div>
         </div>
     </form>
