@@ -43,6 +43,14 @@
                                 Account
                             </span>
                         </a>
+                        <button type="button" class="w-full flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800 js-toggle-search-modal">
+                            <span class="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
+                                <i class='bx bx-search-alt-2'></i>
+                            </span>
+                            <span class="text-sm font-medium">
+                                Search
+                            </span>
+                        </button>
                     {% endif %}
                 </li>
                 <li>
@@ -98,10 +106,10 @@
                 <div class="bg-white rounded-lg w-1/2">
                     <div class="flex flex-col items-start p-4">
                         <div class="flex items-center w-full">
-                        <div class="text-gray-900 font-medium text-lg">New post</div>
-                        <svg class="ml-auto fill-current text-gray-700 w-6 h-6 cursor-pointer js-toggle-post-modal" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18">
-                            <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"/>
-                        </svg>
+                            <div class="text-gray-900 font-medium text-lg">New post</div>
+                            <svg class="ml-auto fill-current text-gray-700 w-6 h-6 cursor-pointer js-toggle-post-modal" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18">
+                                <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"/>
+                            </svg>
                         </div>
                         <div class="w-full">
                             <textarea class="border-2 border-blue-500 mt-4 w-full js-post-text" placeholder="Enter your post" maxlength="240" rows="3" data-post-url="{% url 'feed:new_post' %}"></textarea>
@@ -111,6 +119,18 @@
                                 <span class="js-post-character-count">0</span> / 240
                             </p>
                             {% include "includes/buttons/generic_button.html" with action_display_text="Create Post" action_class_name="js-post-submit" %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex items-center justify-center fixed left-0 bottom-0 w-full h-full bg-gray-800 bg-opacity-75 hidden js-search-modal">
+                <div class="bg-white rounded-lg w-1/2">
+                    <div class="flex flex-col items-start p-4">
+                        <div class="flex items-center w-full">
+                            <div class="text-gray-900 font-medium text-lg">Search Users</div>
+                            <svg class="ml-auto fill-current text-gray-700 w-6 h-6 cursor-pointer js-toggle-search-modal" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18">
+                                <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"/>
+                            </svg>
                         </div>
                     </div>
                 </div>

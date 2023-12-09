@@ -76,7 +76,7 @@
                     {% endfor %}
                     {% if following|length < max_cards %}
                         <p class="font-medium text-lg text-center">
-                            Discover more users to follow!
+                            <i class='bx bx-search-alt-2'></i><span class="cursor-pointer hover:underline js-toggle-search-modal">Discover more users to follow!</span>
                             {% comment %} # TODO: Add user search {% endcomment %}
                         </p>
                     {% endif %}

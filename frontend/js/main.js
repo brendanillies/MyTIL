@@ -93,6 +93,11 @@ $(document)
             }
         })
     })
+    .on('click', '.js-toggle-search-modal', function (e) {
+        e.preventDefault();
+
+        $('.js-search-modal').toggleClass('hidden');
+    })
     .on('click', '.js-toggle-login-modal', function (e) {
         e.preventDefault();
 
