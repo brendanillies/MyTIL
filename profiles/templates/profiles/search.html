@@ -1,5 +1,3 @@
-{% comment %} {% extends "base.html" %} {% endcomment %}
-
-{% for user in users %}
+{% for user in search_result %}
     {{ user.username }} {{ user.profile.image }}
 {% endfor %}

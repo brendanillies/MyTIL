@@ -1,10 +1,11 @@
 import random
-from typing import Any 
+from typing import Any
+from django import http
 from django.contrib.auth.models import User
-from django.db.models.query import QuerySet
-from django.views.generic import DetailView, UpdateView, View, ListView
+from django.views.generic import DetailView, UpdateView, View, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import JsonResponse, HttpResponseBadRequest
+from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest
+from django.shortcuts import render
 
 from feed.models import Post
 from followers.models import Follower
@@ -68,19 +69,19 @@ class ProfileSettingsView(LoginRequiredMixin, UpdateView):
         return context
     
 
-class SearchView(LoginRequiredMixin, ListView):
+class SearchView(LoginRequiredMixin, TemplateView):
     http_method_names = ['get']
-    model = User
     template_name = 'profiles/search.html'
-    context_object_name = 'users'
-    slug_field = 'username'
-    slug_url_kwarg = 'username'
 
-    def get_queryset(self):
-        qs = super().get_queryset()
+    def dispatch(self, request, *args, **kwargs):
+        self.request = request
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs: Any):
+        context = super().get_context_data(**kwargs)    
         username = self.request.GET.get('username')
-        return qs.filter(username__icontains=username)
-
+        context['search_result'] = User.objects.filter(username__icontains=username)
+        return context
 
 
 class FollowView(LoginRequiredMixin, View):

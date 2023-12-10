@@ -312,11 +312,24 @@ $('.js-post-text')
 
 $('.js-search-modal #search')
     .on('keyup', function (e) {
-        // TODO: On keystroke, search for users
-        $.get(
-            $(this).data('url'),
-            {
-                
-            }
-        )
+
+        const resultsDiv = $('.js-search-results');
+
+        if ($(this).val()) {
+            $.get(
+                `${$(this).data('url')}?`,
+                {
+                    username: $(this).val()
+                },
+                function (dataHtml) {
+                    if (dataHtml) {
+                        resultsDiv.html(dataHtml);
+                    } else {
+                        resultsDiv.text('No users found.')
+                    }
+                }
+            )
+        } else {
+            resultsDiv.empty()
+        }
     })

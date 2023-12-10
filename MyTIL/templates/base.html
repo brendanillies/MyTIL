@@ -132,9 +132,8 @@
                                 <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"/>
                             </svg>
                         </div>
-                        <div class="w-full flex items-center">
-                            <input type="text" id="search" name="search" placeholder="Search users..." class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" data-url="{% url 'profiles:search' %}"/>
-                            {% comment %} {% if  %}{% endif %} {% endcomment %}
+                        <input type="text" id="search" name="search" placeholder="Search users..." class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" data-url="{% url 'profiles:search' %}"/>
+                        <div class="w-full flex items-center js-search-results">
                         </div>
                     </div>
                 </div>
