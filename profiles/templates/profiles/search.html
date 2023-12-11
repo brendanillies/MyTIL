@@ -1,3 +1,5 @@
 {% for user in search_result %}
-    {{ user.username }} {{ user.profile.image }}
+    <div class="col-span-1">
+        {% include "includes/cards/user.html" with user=user  %}
+    </div>
 {% endfor %}

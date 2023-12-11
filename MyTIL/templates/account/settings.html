@@ -55,7 +55,7 @@
             <div class="ml-3">
                 {% if followers %}
                     {% for follower in followers %}
-                        {% include "includes/cards/followers.html" with follower=follower.followed_by %}
+                        {% include "includes/cards/user.html" with user=follower.followed_by %}
                     {% endfor %}
                 {% else %}
                     <p class="font-medium text-lg">
@@ -72,7 +72,7 @@
             <div class="ml-3">
                 {% if following %}
                     {% for follow in following %}
-                        {% include "includes/cards/following.html" with user=follow.following  %}
+                        {% include "includes/cards/user.html" with user=follow.following  %}
                     {% endfor %}
                     {% if following|length < max_cards %}
                         <p class="font-medium text-lg text-center">
