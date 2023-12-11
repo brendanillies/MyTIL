@@ -14,6 +14,7 @@ class Profile(models.Model):
     )
     
     image = ImageField(upload_to='profiles', default='profiles/default_user.jpg')
+    banner_image = ImageField(upload_to='profiles', default='profiles/default_user.jpg')
 
     def __str__(self):
         return self.user.username
