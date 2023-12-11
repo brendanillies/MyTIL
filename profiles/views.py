@@ -80,7 +80,7 @@ class SearchView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs: Any):
         context = super().get_context_data(**kwargs)    
         username = self.request.GET.get('username')
-        context['search_result'] = User.objects.filter(username__icontains=username)
+        context['search_result'] = User.objects.filter(username__icontains=username).exclude(username=self.request.user)
         return context
 
 
