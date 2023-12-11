@@ -8,7 +8,7 @@
 
 {% block body %}
     <div class="hero h-[30vh] min-h-[25rem]">
-        <div class="hero w-full h-3/4 bg-cover bg-no-repeat bg-center rounded-lg opacity-[.4]" style="background-image: url({{ user.profile.image.url }})"></div>
+        <div class="hero w-full h-3/4 bg-cover bg-no-repeat bg-center rounded-lg opacity-[.4]" style="background-image: url({{ user.profile.banner_image.url }})"></div>
         <div class="ml-5 relative flex w-full h-1/4">
             <!-- Avatar -->
             <div class="flex">
@@ -77,13 +77,11 @@
                     {% if following|length < max_cards %}
                         <p class="font-medium text-lg text-center">
                             <i class='bx bx-search-alt-2'></i><span class="cursor-pointer hover:underline js-toggle-search-modal">Discover more users to follow!</span>
-                            {% comment %} # TODO: Add user search {% endcomment %}
                         </p>
                     {% endif %}
                 {% else %}
-                    <p class="font-medium text-lg">
-                        Discover users to follow!
-                        {% comment %} # TODO: Add user search {% endcomment %}
+                    <p class="font-medium text-lg text-center">
+                        <i class='bx bx-search-alt-2'></i><span class="cursor-pointer hover:underline js-toggle-search-modal">Discover users to follow!</span>
                     </p>
                 {% endif %}
             </div>
@@ -120,10 +118,10 @@
                                     <label for="banner-image">Banner Image</label>
                                     {% comment %} # TODO: make file upload {% endcomment %}
                                     {% comment %} # TODO: Change banner image size {% endcomment %}
-                                    {% thumbnail user.profile.image "1000x500" crop="center" as im %}
+                                    {% thumbnail user.profile.banner_image "1000x500" crop="center" as im %}
                                         <img class="my-1 w-full h-24 object-cover rounded-lg hidden sm:block" alt="avatar" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
                                     {% endthumbnail %}
-                                    <input type="text" name="banner-image" id="banner-image" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="{{ user.profile.image }}" />
+                                    <input type="text" name="banner-image" id="banner-image" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="{{ user.profile.banner_image }}" />
                                 </div>
                                 <div class="md:col-span-5 text-right">
                                     <div class="inline-flex items-end">
