@@ -4,11 +4,21 @@
 
 
 {% block body %}
-    <div>
+    {% if request.user.is_anonymous %}
+        <div class="bg-red-100 border-t border-b border-red-500 text-red-700 px-4 py-3 js-unauth-user" role="alert">
+            <p class="text-md font-bold">
+                Oops, looks like you aren’t logged in! We’re showing you the most recent 30 posts to show what you’re missing!
+            </p>
+            <div>
+                Do you need to <button class="font-bold no-underline hover:underline js-toggle-login-modal">Login</button> or <button class="font-bold no-underline hover:underline js-toggle-signup-modal">Signup</button>?
+            </div>
+        </div>
+    {% else %}
         {% if not following %}
             {% include "includes/banners/no_following.html" %}
         {% endif %}
-    </div>
+        <input type="text" id="post" name="post" placeholder="What did you learn today?" class="h-10 border mt-1 rounded px-4 w-1/2 bg-gray-50 js-toggle-post-modal js-toggle-post-modal-key" />
+    {% endif %}
     <div id="posts-container">
         {% for post in posts %}
             {% include 'includes/post.html' with post=post show_detail_link=True %}

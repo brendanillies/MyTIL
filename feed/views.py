@@ -25,9 +25,9 @@ class HomePageView(TemplateView):
             if not following:
                 # Not following anybody; Show the default 30
                 posts = Post.objects.all().order_by('-id')[:30]
-                context['following'] = False
             else:
                 posts = Post.objects.filter(author__in=following).order_by('-id')[:60]
+            context['following'] = bool(following)
         else:
             posts = Post.objects.all().order_by('-id')[:30]
 
