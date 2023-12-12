@@ -4,6 +4,11 @@
 
 
 {% block body %}
+    <div>
+        {% if not following %}
+            {% include "includes/banners/no_following.html" %}
+        {% endif %}
+    </div>
     <div id="posts-container">
         {% for post in posts %}
             {% include 'includes/post.html' with post=post show_detail_link=True %}
