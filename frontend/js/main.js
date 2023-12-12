@@ -35,6 +35,11 @@ $(document)
         $('.js-post-character-count').text(0);
         $('.js-post-modal').toggleClass('hidden');
     })
+    .on('focus', '.js-toggle-post-modal-key', function (e) {
+        e.preventDefault();
+        $('.js-post-modal').toggleClass('hidden');
+        $('.js-post-text').focus();
+    })
     .on('click', '.js-post-submit', function (e) {
         e.preventDefault();
 

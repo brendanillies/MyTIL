@@ -94,6 +94,8 @@
                         Do you need to <button class="font-bold no-underline hover:underline js-toggle-login-modal">Login</button> or <button class="font-bold no-underline hover:underline js-toggle-signup-modal">Signup</button>?
                     </div>
                 </div>
+            {% else %}
+                <input type="text" id="post" name="post" placeholder="What did you learn today?" class="h-10 border mt-1 rounded px-4 w-1/2 bg-gray-50 js-toggle-post-modal js-toggle-post-modal-key" />
             {% endif %}
             {% block body %}
                 {% block content %}{% endblock %}
